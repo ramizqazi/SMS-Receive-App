@@ -1,0 +1,8 @@
+{
+  "name": "receive-sms",
+  "displayName": "receive-sms",
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-1370629501360110~6214961812",
+    "ios_app_id": "ca-app-pub-1370629501360110/4486947173"
+  }
+}
