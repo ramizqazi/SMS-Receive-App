@@ -1,11 +1,11 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {AppState} from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { AppState, LogBox } from 'react-native';
 
 import AppNavigation from './navigation/AppNavigation';
 
-import mobileAds, {AdEventType} from 'react-native-google-mobile-ads';
-import {appOpenAd} from './config/mobile-ads';
-import {Provider} from 'react-redux';
+import mobileAds, { AdEventType } from 'react-native-google-mobile-ads';
+import { appOpenAd } from './config/mobile-ads';
+import { Provider } from 'react-redux';
 import configureStore from './redux/configureStore';
 const store = configureStore();
 
@@ -14,6 +14,8 @@ mobileAds()
   .then(adapterStatuses => {
     // Initialization complete!
   });
+
+LogBox.ignoreAllLogs()
 
 /* =============================================================================
 <App />

@@ -34,6 +34,7 @@ const NumberDetailsScreen = () => {
   const numberDetails = useSelector(state => getSelectedNumberSelector(state));
   const numberMessages = useSelector(state => getNumberMessagesSelector(state));
   const loader = useSelector(state => getLoadingSelector(state));
+  console.log(numberMessages)
 
   useEffect(() => {
     const unsubscribe = interstitial.addAdEventListener(
@@ -76,7 +77,13 @@ const NumberDetailsScreen = () => {
     <Container>
       <DetailHeader value={numberDetails} />
       <FlatList
-        data={numberMessages}
+        data={[{
+          id: 1,
+          from: 'MOCK SMS',
+          timestamp: '2030/20/18',
+          message: '9592858583',
+        }
+        ]}
         ListEmptyComponent={
           loader && <ActivityIndicator size={30} color={Colors.black} />
         }

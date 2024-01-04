@@ -70,6 +70,7 @@ export const getNumberMessages = selectedNumber => async dispatch => {
     const res = await axios.get(
       `https://r.clicktohit.com/sms/${selectedNumber}`,
     );
+    console.log('MESSAGES',  Object.keys(res))
 
     const messages = res.data.map((item, index) => ({
       id: index,
