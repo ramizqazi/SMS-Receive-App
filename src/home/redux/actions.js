@@ -70,7 +70,7 @@ export const getNumberMessages = selectedNumber => async dispatch => {
     const res = await axios.get(
       `https://r.getsmss.com/sms/${selectedNumber}`,
     );
-    console.log('MESSAGES',  res.data)
+    console.log('MESSAGES',  res.data, selectedNumber)
 
     const messages = res.data.map((item, index) => ({
       id: index,

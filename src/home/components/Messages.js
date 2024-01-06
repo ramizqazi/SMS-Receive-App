@@ -12,7 +12,7 @@ const Messages = ({ item }) => {
 
   const _handleCopyMessage = async () => {
     const isAppReviewd = await AsyncStorage.getItem('@receiveSms/isAppReviewd');
-    
+
     if (isAppReviewd !== 'true') {
       await AsyncStorage.setItem('@receiveSms/isAppReviewd', 'true');
 
@@ -29,8 +29,15 @@ const Messages = ({ item }) => {
       }
     }
 
-    Clipboard.setString(`Your DENT code is: ${item?.message}`);
-    ToastAndroid.show('Code Copied', ToastAndroid.SHORT);
+    const extractedCode = item?.message?.match(/\d+\s*\d*/);
+
+    if (extractedCode[0]) {
+      Clipboard.setString(`${extractedCode[0]}`);
+      ToastAndroid.show('Code Copied', ToastAndroid.SHORT);
+    } else {
+      Clipboard.setString(item?.message);
+      ToastAndroid.show('Message Copied', ToastAndroid.SHORT);
+    }
   };
 
   return (
@@ -46,7 +53,7 @@ const Messages = ({ item }) => {
         </View>
         <TouchableOpacity onPress={_handleCopyMessage} style={styles.copyIcon}>
           <Feather name='copy' color='#999' size={18} />
-          <Text style={{ color: '#999' }}>Copy</Text>
+          <Text style={{ color: '#999', textDecorationLine: 'underline' }} sm>Copy</Text>
         </TouchableOpacity>
       </View>
       <Text style={styles.text} regular grey sm>
@@ -78,7 +85,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     alignSelf: 'flex-end',
-    backgroundColor: 'rgba(255,255,255,0.5)',
   },
 });
 

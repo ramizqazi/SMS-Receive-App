@@ -57,12 +57,12 @@ const NumberDetailsScreen = () => {
   }, [interstitialLoaded]);
 
   useEffect(() => {
-    dispatch(getNumberMessagesAction(numberDetails.number));
+    dispatch(getNumberMessagesAction(`${numberDetails?.Prefix}${numberDetails?.number}`));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [numberDetails, numberDetails.number]);
 
   const _reFetchNumberMessages = () => {
-    dispatch(getNumberMessagesAction(numberDetails.number));
+    dispatch(getNumberMessagesAction(`${numberDetails?.Prefix}${numberDetails?.number}`));
   };
 
   const _handleRandomNumber = () => {
