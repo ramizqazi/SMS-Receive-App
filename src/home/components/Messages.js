@@ -13,8 +13,6 @@ const Messages = ({ item }) => {
   const _handleCopyMessage = async () => {
     const isAppReviewd = await AsyncStorage.getItem('@receiveSms/isAppReviewd');
     
-    console.log(isAppReviewd)
-
     if (isAppReviewd !== 'true') {
       await AsyncStorage.setItem('@receiveSms/isAppReviewd', 'true');
 
@@ -29,7 +27,6 @@ const Messages = ({ item }) => {
           `itms://itunes.apple.com/in/app/apple-store/Test`
         ).catch(err => alert('Please check for the App Store'));
       }
-
     }
 
     Clipboard.setString(`Your DENT code is: ${item?.message}`);

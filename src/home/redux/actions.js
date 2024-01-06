@@ -40,7 +40,7 @@ export const unSelectNumber = () => async dispatch => {
 export const getNumbers = () => async dispatch => {
   try {
     dispatch({type: constants.GET_NUMBERS.REQUEST});
-    const res = await axios.get('https://r.clicktohit.com/numbers');
+    const res = await axios.get('https://r.getsmss.com/numbers');
     const numbers = res.data.map((item, index) => ({
       id: index,
       ...item,
@@ -68,9 +68,9 @@ export const getNumberMessages = selectedNumber => async dispatch => {
     dispatch({type: constants.GET_NUMBER_MESSAGES.REQUEST});
 
     const res = await axios.get(
-      `https://r.clicktohit.com/sms/${selectedNumber}`,
+      `https://r.getsmss.com/sms/${selectedNumber}`,
     );
-    console.log('MESSAGES',  Object.keys(res))
+    console.log('MESSAGES',  res.data)
 
     const messages = res.data.map((item, index) => ({
       id: index,

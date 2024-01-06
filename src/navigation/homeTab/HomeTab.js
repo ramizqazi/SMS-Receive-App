@@ -1,8 +1,8 @@
 import React from 'react';
-import {useSafeArea} from 'react-native-safe-area-context';
-import {View, StyleSheet, TouchableOpacity} from 'react-native';
+import { useSafeArea } from 'react-native-safe-area-context';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import HomeActive from '../../assets/icons/home-Active.svg';
 import HomeInActive from '../../assets/icons/home-inActive.svg';
@@ -10,12 +10,12 @@ import DetailActive from '../../assets/icons/detail-Active.svg';
 import DetailInActive from '../../assets/icons/detail-inActive.svg';
 import ProfileInActive from '../../assets/icons/profile.svg';
 
-import {getSelectedNumber} from '../../home/redux/selectors';
+import { getSelectedNumber } from '../../home/redux/selectors';
 
 /* =============================================================================
 <HomeTab />
 ============================================================================= */
-const HomeTab = ({state, navigation}) => {
+const HomeTab = ({ state, navigation }) => {
   const insets = useSafeArea();
 
   const _safeAreaStyle = {
@@ -27,41 +27,39 @@ const HomeTab = ({state, navigation}) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.borderContainer}>
-        <View style={[styles.innerContainer, _safeAreaStyle]}>
-          {state.routes.map((route, index) => {
-            const isFocused = state.index === index;
-            const icon = isFocused
-              ? ICONS[index].active
-              : ICONS[index].inActive;
+      <View style={[styles.innerContainer, _safeAreaStyle]}>
+        {state.routes.map((route, index) => {
+          const isFocused = state.index === index;
+          const icon = isFocused
+            ? ICONS[index].active
+            : ICONS[index].inActive;
 
-            const onPress = async () => {
-              const event = navigation.emit({
-                type: 'tabPress',
-                target: route.key,
-              });
-              if (!isFocused && !event.defaultPrevented) {
-                if (route.name === 'NumberDetails') {
-                  if (selectedNumber) {
-                    navigation.navigate('NumberDetails');
-                  }
-                } else {
-                  navigation.navigate(route.name);
+          const onPress = async () => {
+            const event = navigation.emit({
+              type: 'tabPress',
+              target: route.key,
+            });
+            if (!isFocused && !event.defaultPrevented) {
+              if (route.name === 'NumberDetails') {
+                if (selectedNumber) {
+                  navigation.navigate('NumberDetails');
                 }
+              } else {
+                navigation.navigate(route.name);
               }
-            };
+            }
+          };
 
-            return (
-              <TouchableOpacity
-                key={route.key}
-                activeOpacity={1}
-                onPress={onPress}
-                style={[styles.item, isFocused && styles.activeItem]}>
-                {icon}
-              </TouchableOpacity>
-            );
-          })}
-        </View>
+          return (
+            <TouchableOpacity
+              key={route.key}
+              activeOpacity={1}
+              onPress={onPress}
+              style={[styles.item, isFocused && styles.activeItem]}>
+              {icon}
+            </TouchableOpacity>
+          );
+        })}
       </View>
     </View>
   );
@@ -74,12 +72,8 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: '#FFF',
   },
-  borderContainer: {
-    width: '100%',
-    paddingTop: 1,
-  },
   innerContainer: {
-    // paddingHorizontal: 60,
+    paddingHorizontal: 40,
     justifyContent: 'space-around',
     width: '100%',
     flexDirection: 'row',
@@ -92,12 +86,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.37,
     shadowRadius: 7.49,
     elevation: 12,
-    paddingHorizontal: 40,
   },
   item: {
-    width: 30,
-    // flex: 1,
-    // flexDirection: 'row',
+    flex: 1,
+    marginHorizontal: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -122,9 +114,9 @@ const styles = StyleSheet.create({
 });
 
 const ICONS = [
-  {inActive: <HomeInActive />, active: <HomeActive />},
-  {inActive: <DetailInActive />, active: <DetailActive />},
-  {inActive: <ProfileInActive />, active: <ProfileInActive />},
+  { inActive: <HomeInActive />, active: <HomeActive /> },
+  { inActive: <DetailInActive />, active: <DetailActive /> },
+  { inActive: <ProfileInActive />, active: <ProfileInActive /> },
 ];
 
 export default HomeTab;
