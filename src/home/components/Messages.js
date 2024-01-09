@@ -1,7 +1,8 @@
 import React from 'react';
 import Feather from 'react-native-vector-icons/Feather';
+import InAppReview from 'react-native-in-app-review';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Clipboard, ToastAndroid, StyleSheet, TouchableOpacity, Linking, Platform } from 'react-native';
+import { Clipboard, StyleSheet, ToastAndroid, TouchableOpacity } from 'react-native';
 
 import { Text, View } from '../../common';
 
@@ -16,22 +17,12 @@ const Messages = ({ item }) => {
     if (isAppReviewd !== 'true') {
       await AsyncStorage.setItem('@receiveSms/isAppReviewd', 'true');
 
-      if (Platform.OS != 'ios') {
-        //To open the Google Play Store
-        await Linking.openURL(`market://details?id=com.jb.receivesms`).catch(err =>
-          alert('Please check for the Google Play Store')
-        );
-      } else {
-        //To open the Apple App Store
-        await Linking.openURL(
-          `itms://itunes.apple.com/in/app/apple-store/Test`
-        ).catch(err => alert('Please check for the App Store'));
-      }
+      await InAppReview.RequestInAppReview();
     }
+    const regexPattern = /\b(\d(?:[-\s]?\d){3,7})\b/;
+    const extractedCode = item?.message?.match(regexPattern);
 
-    const extractedCode = item?.message?.match(/\d+\s*\d*/);
-
-    if (extractedCode[0]) {
+    if (extractedCode && extractedCode[0]) {
       Clipboard.setString(`${extractedCode[0]}`);
       ToastAndroid.show('Code Copied', ToastAndroid.SHORT);
     } else {
